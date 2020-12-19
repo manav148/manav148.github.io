@@ -65,7 +65,7 @@
       </div>
       <input class="form-control shadow p-3 mb-5 bg-white rounded" type="text" placeholder="Additional Notes" aria-label="Additional Notes" name="notes" id="notes">
 
-      <button class="w-100 btn btn-lg btn-primary" type="submit" onclick="alert('Report Submitted')">Submit</button>
+      <button class="w-100 btn btn-lg btn-primary" type="submit" >Submit</button>
       <p class="mt-5 mb-3 text-muted">&copy; Manav Kundra 2020</p>
     </form>
 
@@ -78,8 +78,8 @@
     form.addEventListener('submit', e => {
       e.preventDefault()
       fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => console.log('Success!', response))
-      .catch(error => console.error('Error!', error.message))
+      .then(response => {console.log('Success!', response); location.reload()})
+      .catch(error => {console.error('Error!', error.message); alert('Something bad happened!')})
     })
   </script>
 
