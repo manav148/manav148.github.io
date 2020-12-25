@@ -71,31 +71,35 @@
       </div>
       <input class="form-control shadow p-3 mb-5 bg-white rounded" type="text" placeholder="Additional Notes" aria-label="Additional Notes" name="notes" id="notes">
 
-      <button class="w-100 btn btn-lg btn-primary" type="submit" >Submit</button>
+      <button id="submit-button" class="w-100 btn btn-lg btn-primary" type="submit" >Submit</button>
     </form>
-    
+
     <br><br>
     <div>
-      <div id="submitting" class="text-center invisible">
+      <div id="submit-spinner" class="text-center invisible">
         <div class="spinner-grow text-primary" role="status"></div>
         <div class="spinner-grow text-secondary" role="status"></div>
         <div class="spinner-grow text-success" role="status"></div>
         <div class="spinner-grow text-danger" role="status"></div>
       </div>
     </div> 
-    
+
     <p class="mt-5 mb-3 text-muted">&copy; Manav Kundra 2020</p>
   </main>
   <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyUECPhN6xHl2a9tx_v06YJtE8BdT8HWyr_1xgXIHgXp6hnzhmlU0h2Sw/exec'
     const form = document.forms['submit-to-google-sheet']
-
     form.addEventListener('submit', e => {
       e.preventDefault()
-      $('#submitting').addClass('visible').removeClass('invisible');
+      $('#submit-button').addClass('disabled');
+      $('#submit-spinner').addClass('visible').removeClass('invisible');
       fetch(scriptURL, { method: 'POST', body: new FormData(form)})
       .then(response => {console.log('Success!', response);location.reload()})
-      .catch(error => {console.error('Error!', error.message); alert('Something bad happened, try again!')})
+      .catch(error => {
+        console.error('Error!', error.message); 
+        $('#submit-button').removeClass("disabled");
+        alert('Something bad happened, try again!')
+      })
     })
   </script>
 
