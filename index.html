@@ -87,13 +87,13 @@
     <p class="mt-5 mb-3 text-muted">&copy; Manav Kundra 2020</p>
   </main>
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyUECPhN6xHl2a9tx_v06YJtE8BdT8HWyr_1xgXIHgXp6hnzhmlU0h2Sw/exec'
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwB5vrAwUVOj08V2Pkvg3DyRZVJkvSSQZk0TNka77Uap4wtil5_3lSUV2xNxUyiUV8Fig/exec'
     const form = document.forms['submit-to-google-sheet']
     form.addEventListener('submit', e => {
       e.preventDefault()
       $('#submit-button').addClass('disabled');
       $('#submit-spinner').addClass('visible').removeClass('invisible');
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      fetch(scriptURL, { method: 'POST', crossDomain: true, body: new FormData(form)})
       .then(response => {console.log('Success!', response);location.reload()})
       .catch(error => {
         console.error('Error!', error.message); 
